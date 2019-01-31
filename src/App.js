@@ -1,15 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import createStore from './store';
 import { Provider } from 'react-redux';
-import { ToastContainer } from 'react-toastify';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import 'react-toastify/dist/ReactToastify.css';
-import Header from './components/Header';
-import Wrapper from './components/Wrapper';
-import NavDrawer from './components/NavDrawer';
-import { Dashboard, MapVis, ChartVis, FourOhFour } from './layouts';
+import MainLayout from './layouts/MainLayout';
 
 const store = createStore();
 const theme = createMuiTheme({
@@ -47,17 +43,7 @@ const App = () => (
     <MuiThemeProvider theme={themeWithHeaderPadding}>
       <CssBaseline />
       <Provider store={store}>
-        <Wrapper>
-          <Header />
-          <NavDrawer />
-          <Switch>
-            <Route exact path="/" component={Dashboard} />
-            <Route path="/map" component={MapVis} />
-            <Route path="/chart" component={ChartVis} />
-            <Route component={FourOhFour} />
-          </Switch>
-          <ToastContainer />
-        </Wrapper>
+        <MainLayout />
       </Provider>
     </MuiThemeProvider>
   </Router>

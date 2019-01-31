@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import * as actions from "../store/actions";
-import LinearProgress from "@material-ui/core/LinearProgress";
-import ChipRaw from "@material-ui/core/Chip";
-import { withStyles } from "@material-ui/core/styles";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from '../store/actions';
+import LinearProgress from '@material-ui/core/LinearProgress';
+import ChipRaw from '@material-ui/core/Chip';
+import { withStyles } from '@material-ui/core/styles';
 
 const cardStyles = theme => ({
   root: {
@@ -15,12 +15,21 @@ const cardStyles = theme => ({
 });
 const Chip = withStyles(cardStyles)(ChipRaw);
 
+const styles = theme => ({
+  chipFloat: {
+    [theme.breakpoints.down('xs')]: {
+      display: 'none'
+    }
+  }
+});
+
 class Weather extends Component {
   componentDidMount() {
     this.props.onLoad();
   }
   render() {
     const {
+      classes,
       loading,
       name,
       weather_state_name,
@@ -29,6 +38,7 @@ class Weather extends Component {
     if (loading) return <LinearProgress />;
     return (
       <Chip
+        className={classes.chipFloat}
         label={`Weather in ${name}: ${weather_state_name} and ${temperatureinFahrenheit}°`}
       />
     );
@@ -62,4 +72,4 @@ const mapDispatch = dispatch => ({
 export default connect(
   mapState,
   mapDispatch
-)(Weather);
+)(withStyles(styles)(Weather));

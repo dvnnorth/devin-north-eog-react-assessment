@@ -8,6 +8,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { withStyles } from '@material-ui/core/styles';
 import AvatarRaw from '@material-ui/core/Avatar';
 
+// Icons
+import WhatshotIcon from '@material-ui/icons/Whatshot';
+import MapIcon from '@material-ui/icons/Map';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
+
 const cardStyles = theme => ({
   root: {
     background: theme.palette.primary.main
@@ -29,12 +34,7 @@ const styles = theme => ({
   card: {
     margin: '5% 25%'
   },
-  content: {
-    ...theme.addHeaderPadding,
-    paddingLeft: 240,
-    minWidth: 0 // So the Typography noWrap works
-  },
-  toolbar: theme.mixins.toolbar,
+  toolbar: theme.mixins.toolbar
 });
 
 const DashboardDisplay = props => {
@@ -73,31 +73,37 @@ const DashboardDisplay = props => {
     />
   );
   return (
-    <main className={classes.content}>
-      <Card className={classes.card}>
-        <CardHeader title="Dashboard" />
-        <CardContent>
-          <List>
-            <ListItem>
-              <Avatar>1</Avatar>
-              {displayTemp}
-            </ListItem>
-            <ListItem>
-              <Avatar>2</Avatar>
-              {latitude}
-            </ListItem>
-            <ListItem>
-              <Avatar>3</Avatar>
-              {longitude}
-            </ListItem>
-            <ListItem>
-              <Avatar>4</Avatar>
-              {lastReceived}
-            </ListItem>
-          </List>
-        </CardContent>
-      </Card>
-    </main>
+    <Card className={classes.card}>
+      <CardHeader title="Dashboard" />
+      <CardContent>
+        <List>
+          <ListItem>
+            <Avatar>
+              <WhatshotIcon />
+            </Avatar>
+            {displayTemp}
+          </ListItem>
+          <ListItem>
+            <Avatar>
+              <MapIcon />
+            </Avatar>
+            {latitude}
+          </ListItem>
+          <ListItem>
+            <Avatar>
+              <MapIcon />
+            </Avatar>
+            {longitude}
+          </ListItem>
+          <ListItem>
+            <Avatar>
+              <AccessTimeIcon />
+            </Avatar>
+            {lastReceived}
+          </ListItem>
+        </List>
+      </CardContent>
+    </Card>
   );
 };
 
