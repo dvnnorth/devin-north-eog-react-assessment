@@ -20,7 +20,6 @@ const Map = compose(
   withScriptjs,
   withGoogleMap
 )(props => {
-  console.log(process.env.REACT_APP_MAPS_API_KEY);
   return (
     <GoogleMap defaultZoom={5} defaultCenter={{ lat: 29.76, lng: -95.37 }}>
       {props.isMarkerShown && (
