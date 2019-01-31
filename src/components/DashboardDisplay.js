@@ -1,4 +1,5 @@
 import React from 'react';
+import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardHeaderRaw from '@material-ui/core/CardHeader';
 import CardContent from '@material-ui/core/CardContent';
@@ -6,7 +7,9 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
 import AvatarRaw from '@material-ui/core/Avatar';
+import * as actions from '../store/actions';
 
 // Icons
 import WhatshotIcon from '@material-ui/icons/Whatshot';
@@ -31,6 +34,9 @@ const avatarStyles = theme => ({
 const Avatar = withStyles(avatarStyles)(AvatarRaw);
 
 const styles = theme => ({
+  grid: {
+    paddingTop: 50
+  },
   card: {
     margin: '5% 25%'
   },
@@ -73,38 +79,61 @@ const DashboardDisplay = props => {
     />
   );
   return (
-    <Card className={classes.card}>
-      <CardHeader title="Dashboard" />
-      <CardContent>
-        <List>
-          <ListItem>
-            <Avatar>
-              <WhatshotIcon />
-            </Avatar>
-            {displayTemp}
-          </ListItem>
-          <ListItem>
-            <Avatar>
-              <MapIcon />
-            </Avatar>
-            {latitude}
-          </ListItem>
-          <ListItem>
-            <Avatar>
-              <MapIcon />
-            </Avatar>
-            {longitude}
-          </ListItem>
-          <ListItem>
-            <Avatar>
-              <AccessTimeIcon />
-            </Avatar>
-            {lastReceived}
-          </ListItem>
-        </List>
-      </CardContent>
-    </Card>
+    <Grid container className={classes.grid}>
+      <Grid item xs={12}>
+        <Card className={classes.card}>
+          <CardHeader title="Dashboard" />
+          <CardContent>
+            <List>
+              <ListItem>
+                <Avatar>
+                  <WhatshotIcon />
+                </Avatar>
+                {displayTemp}
+              </ListItem>
+              <ListItem>
+                <Avatar>
+                  <MapIcon />
+                </Avatar>
+                {latitude}
+              </ListItem>
+              <ListItem>
+                <Avatar>
+                  <MapIcon />
+                </Avatar>
+                {longitude}
+              </ListItem>
+              <ListItem>
+                <Avatar>
+                  <AccessTimeIcon />
+                </Avatar>
+                {lastReceived}
+              </ListItem>
+            </List>
+          </CardContent>
+        </Card>
+      </Grid>
+    </Grid>
   );
 };
 
-export default withStyles(styles)(DashboardDisplay);
+const mapStateToProps = state => {
+  const { selectedIndex } = state.navContent;
+  return {
+    selectedIndex
+  };
+};
+
+const mapDispatchToProps = dispatch => ({
+  setSelectedLink: index => {
+    dispatch({
+      type: actions.UPDATE_SELECTED_LINK,
+      index
+    });
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(DashboardDisplay));

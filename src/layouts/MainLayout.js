@@ -120,11 +120,8 @@ class MainLayout extends React.Component {
           <Divider />
           <NavContent />
         </Drawer>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
           <View />
           <ToastContainer />
-        </main>
       </div>
     );
   }
